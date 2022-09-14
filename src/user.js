@@ -13,10 +13,6 @@ class User {
     return firstName[0];
   }
 
-  compareUserStepGoal() {
-    //pull in user repository
-    //
-  }
 }
 
 export default User;
