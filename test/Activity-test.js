@@ -213,4 +213,15 @@ describe('Activity', () => {
 
         expect(activity2.exceededGoal(activityArray, 2, user2)).to.deep.equal(['2019/06/17', '2019/06/19', '2019/06/20', '2019/06/21'])
     })
+
+    it('should return the latest number of active minutes for the user', () => {
+      expect(activity1.getLatestActiveMinutes(activityArray, 1)).to.equal(140)
+      expect(activity2.getLatestActiveMinutes(activityArray, 2)).to.equal(124)
+    })
+
+    it('should return the users highest stair climbing record', () => {
+      expect(activity1.allTimeStairClimbingRecord(activityArray, 1)).to.equal(16)
+      expect(activity2.allTimeStairClimbingRecord(activityArray, 2)).to.equal(44)
+
+    })
 })
