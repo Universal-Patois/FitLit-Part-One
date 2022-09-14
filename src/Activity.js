@@ -32,6 +32,26 @@ class Activity {
         return dayArray
     }
 
+    getLatestActiveMinutes(activityArray, id) {
+        let currentUserActivity = this.getActivityByID(activityArray, id)
+        currentUserActivity.sort((a, b) => {
+            return new Date(b.date).getTime() - new Date(a.date).getTime()
+        })
+        return currentUserActivity[0].minutesActive
+    }
+
+    allTimeStairClimbingRecord(activityArray, id) {
+        let currentUserActivity = this.getActivityByID(activityArray, id)
+        const mostStairs = currentUserActivity.map(activity => {
+            return activity.flightsOfStairs
+        }).sort((a, b) => {
+            return b - a
+        })
+        return mostStairs[0]
+    }
 }
+
+
+
 
 export default Activity;
