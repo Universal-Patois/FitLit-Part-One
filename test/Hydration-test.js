@@ -1,5 +1,6 @@
 import { expect } from 'chai';
 import { sampleHydration } from '../src/sample-data';
+
 import User from '../src/User';
 import Hydration from '../src/Hydration';
 
