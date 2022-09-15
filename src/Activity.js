@@ -49,8 +49,33 @@ class Activity {
         })
         return mostStairs[0]
     }
-}
 
+    averageMinutesActiveWeek(activityArray, id, date) {
+        let givenWeek = [date]
+        let totalMinutesActive = 0
+        let currentUserActivity = this.getActivityByID(activityArray, id)
+        const averageMinutes = currentUserActivity.reduce((acc, day) => {
+            if (day.date === givenWeek.forEach(day)) {
+                acc += day.minutesActive
+            }
+            console.log(acc)
+            return acc
+        },0)
+        return averageMinutes
+        
+        // .forEach(day => {
+            //     if (day.date === givenWeek.forEach(date)){
+                //        return totalMinutesActive += day.minutesActive
+                //     }
+                // console.log(totalMinutesActive)
+        // })
+        // return averageMinutes
+        
+        // .sort((a, b) => a.date - b.date)
+        // .splice(indexOf(givenWeek), 7)
+        //change 0 to indexOf given week
+      }
+}
 
 
 
