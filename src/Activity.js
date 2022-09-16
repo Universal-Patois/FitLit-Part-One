@@ -49,8 +49,25 @@ class Activity {
         })
         return mostStairs[0]
     }
-}
 
+    averageMinutesActiveWeek(activityArray, id, dates) {
+        let givenWeek = dates
+        let currentUserActivity = this.getActivityByID(activityArray, id)
+        const totalMinutesActive = currentUserActivity.reduce((acc, day) => {
+            givenWeek.forEach(dayy => {
+                if (day.date === dayy ) {
+                    acc += day.minutesActive
+                }
+            })
+            return acc
+        },0)
+        return parseInt(totalMinutesActive / 7)
+      }
+
+      minutesActiveByDay(activityArray, id) {
+
+      }
+}
 
 
 
