@@ -64,9 +64,22 @@ class Activity {
         return parseInt(totalMinutesActive / 7)
       }
 
-      minutesActiveByDay(activityArray, id) {
-
+    minutesActiveByDay(activityArray, id, date) {
+        let currentUserActivity = this.getActivityByID(activityArray, id)
+        let minutesActivePerDay = currentUserActivity.find((day) => {
+            if (day.date === date) {
+                return day.date
+            } else {
+                console.log(day)
+                return 'No data for this day.'
+            }
+            })
+        return minutesActivePerDay.minutesActive
       }
+    milesWalkedByDay() {
+        let currentUserActivity = this.getActivityByID(activityArray, id)
+        const getMilesWalked = currentUserActivity
+    }
 }
 
 

@@ -228,4 +228,9 @@ describe('Activity', () => {
       expect(activity2.averageMinutesActiveWeek(activityArray, 2, ["2019/06/22", "2019/06/21", "2019/06/20", "2019/06/19", "2019/06/18", "2019/06/17", "2019/06/16"])).to.equal(154)
       // expect(activity1.averageMinutesActiveWeek(activityArray, 1, ["2019/06/15"])).to.equal('There is not enough information to calculate your average minutes active. Please select 7 consecutive days of activity')
     })
+
+    it ('should return how many minutes the user was active on a specific date', () => {
+      expect(activity1.minutesActiveByDay(activityArray, 1, "2019/06/15")).to.equal(140)
+      // expect(activity1.minutesActiveByDay(activityArray, 1, "2020/05/11")).to.equal(140)
+    })
 })
