@@ -15,6 +15,7 @@ describe('Activity', () => {
     let activity7;
     let activity8;
     let activity9;
+    let activity10;
     let activityArray;
     let user1;
     let user2;
@@ -26,6 +27,13 @@ describe('Activity', () => {
             "numSteps": 3577,
             "minutesActive": 140,
             "flightsOfStairs": 16
+          });
+          activity10 = new Activity ({
+            "userID": 1,
+            "date": "2019/06/19",
+            "numSteps": 11858,
+            "minutesActive": 143,
+            "flightsOfStairs": 54
           });
         activity2 = new Activity({
             "userID": 2,
@@ -84,7 +92,7 @@ describe('Activity', () => {
             "flightsOfStairs": 31
           });
 
-          activityArray = [activity1, activity2, activity3, activity4, activity5, activity6, activity7, activity8, activity9];
+          activityArray = [activity1, activity2, activity3, activity4, activity5, activity6, activity7, activity8, activity9, activity10];
 
           user1 = new User({
           "id": 1,
@@ -145,7 +153,14 @@ describe('Activity', () => {
             "numSteps": 3577,
             "minutesActive": 140,
             "flightsOfStairs": 16
-        }])
+        },
+        {
+          "userID": 1,
+          "date": "2019/06/19",
+          "numSteps": 11858,
+          "minutesActive": 143,
+          "flightsOfStairs": 54
+        }]);
         
           expect(activity2.getActivityByID(activityArray, 2)).to.deep.equal(
             [{
@@ -209,18 +224,17 @@ describe('Activity', () => {
     })
 
     it('should return an array of dates the user exceeded their step goal', () => {
-        expect(activity1.exceededGoal(activityArray, 1, user1)).to.deep.equal('There are no dates that match');
-
+        expect(activity1.exceededGoal(activityArray, 1, user1)).to.deep.equal(['2019/06/19']);
         expect(activity2.exceededGoal(activityArray, 2, user2)).to.deep.equal(['2019/06/17', '2019/06/19', '2019/06/20', '2019/06/21'])
     })
 
     it('should return the latest number of active minutes for the user', () => {
-      expect(activity1.getLatestActiveMinutes(activityArray, 1)).to.equal(140)
+      expect(activity1.getLatestActiveMinutes(activityArray, 1)).to.equal(143)
       expect(activity2.getLatestActiveMinutes(activityArray, 2)).to.equal(124)
     })
 
     it('should return the users highest stair climbing record', () => {
-      expect(activity1.allTimeStairClimbingRecord(activityArray, 1)).to.equal(16)
+      expect(activity1.allTimeStairClimbingRecord(activityArray, 1)).to.equal(54)
       expect(activity2.allTimeStairClimbingRecord(activityArray, 2)).to.equal(44)
     })
 
@@ -239,8 +253,27 @@ describe('Activity', () => {
       expect(activity2.milesWalkedByDay(activityArray, 2, "2019/06/15", user2)).to.equal(3.7)
     })
 
-    it.only('should tell the user if they achieved their step goal', () => {
+    it('should tell the user if they achieved their step goal', () => {
       expect(activity1.stepGoalAchieved(activityArray, 1, "2019/06/15", user1)).to.equal('You didnt reach your step goal for today')
       // expect(activity2.stepGoalAchieved(activityArray, 2, "2019/06/15", user2)).to.equal('Congratulations! You have exceeded your step goal!')
     })
+
+    it('should return the average number of minutes active for all users for a given day', () => {
+      expect(activity1.averageAllUsersDailyMinutes(activityArray, "2019/06/15")).to.equal(139)
+      expect(activity10.averageAllUsersDailyMinutes(activityArray, "2019/06/19")).to.equal(193)
+    })
+
+    it('should return the average number of steps for all users for a given day', () => {
+      expect(activity1.averageAllUsersDailySteps(activityArray, "2019/06/15")).to.equal(3935)
+      expect(activity10.averageAllUsersDailySteps(activityArray, "2019/06/19")).to.equal(10858)
+    })
+
+    it('should return the average number of stairs climbed for all users for a given day', () => {
+      expect(activity1.averageAllUsersDailyStairs(activityArray, "2019/06/15")).to.equal(13)
+      expect(activity10.averageAllUsersDailyStairs(activityArray, "2019/06/19")).to.equal(49)
+    })
+
+    // it('should return the average number of stairs climbed, minutes active, and daily steps for all users for a given day', () => {
+    //   expect(activity1.averageAllUsersActivities(activityArray, "2019/06/15")).to.equal(5634)
+    // })
 })
