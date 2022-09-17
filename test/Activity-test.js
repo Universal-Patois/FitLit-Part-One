@@ -233,4 +233,14 @@ describe('Activity', () => {
       expect(activity1.minutesActiveByDay(activityArray, 1, "2019/06/15")).to.equal(140)
       // expect(activity1.minutesActiveByDay(activityArray, 1, "2020/05/11")).to.equal(140)
     })
+
+    it ('should return the miles walked for a given day by user', () => {
+      expect(activity1.milesWalkedByDay(activityArray, 1, "2019/06/15", user1)).to.equal(2.9)
+      expect(activity2.milesWalkedByDay(activityArray, 2, "2019/06/15", user2)).to.equal(3.7)
+    })
+
+    it.only('should tell the user if they achieved their step goal', () => {
+      expect(activity1.stepGoalAchieved(activityArray, 1, "2019/06/15", user1)).to.equal('You didnt reach your step goal for today')
+      // expect(activity2.stepGoalAchieved(activityArray, 2, "2019/06/15", user2)).to.equal('Congratulations! You have exceeded your step goal!')
+    })
 })

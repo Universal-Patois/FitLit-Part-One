@@ -1,3 +1,4 @@
+import { sampleHydration } from "./sample-data";
 
 
 class Activity {
@@ -55,14 +56,14 @@ class Activity {
         let currentUserActivity = this.getActivityByID(activityArray, id)
         const totalMinutesActive = currentUserActivity.reduce((acc, day) => {
             givenWeek.forEach(dayy => {
-                if (day.date === dayy ) {
+                if (day.date === dayy) {
                     acc += day.minutesActive
                 }
             })
             return acc
-        },0)
+        }, 0)
         return parseInt(totalMinutesActive / 7)
-      }
+    }
 
     minutesActiveByDay(activityArray, id, date) {
         let currentUserActivity = this.getActivityByID(activityArray, id)
@@ -70,15 +71,42 @@ class Activity {
             if (day.date === date) {
                 return day.date
             } else {
-                console.log(day)
                 return 'No data for this day.'
             }
-            })
+        })
         return minutesActivePerDay.minutesActive
-      }
-    milesWalkedByDay() {
+    }
+
+    milesWalkedByDay(activityArray, id, date, userID) {
         let currentUserActivity = this.getActivityByID(activityArray, id)
-        const getMilesWalked = currentUserActivity
+        const getDailySteps = currentUserActivity.find((day) => {
+            if (day.date === date) {
+                return day
+            } else {
+              return 'No data for this day.'
+            }
+        }).numSteps
+        const getMiles = Number(((getDailySteps * userID.strideLength) / 5280).toFixed(1))
+        return getMiles;
+    }
+
+    stepGoalAchieved(activityArray, id, date, userID) {
+        let currentUserActivity = this.getActivityByID(activityArray, id)
+        const getStepGoal = currentUserActivity.find((day) => {
+            if (day.date === date) {
+                return day
+            } else {
+                return 'No data for this day.'
+            }
+        }).numSteps
+        console.log(getStepGoal, 'user: ', userID.dailyStepGoal)
+            if (getStepGoal > userID.dailyStepGoal) {
+                return 'Congratulations! You have exceeded your step goal!'
+            } else if (getStepGoal === userID.dailyStepGoal) {
+                return 'Congratulations! You have tied your step goal!'
+            } else {
+                return 'You didnt reach your step goal for today'
+            }
     }
 }
 
