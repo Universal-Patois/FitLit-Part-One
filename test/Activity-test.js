@@ -220,7 +220,6 @@ describe('Activity', () => {
             "flightsOfStairs": 31
           }])
         
-          expect(activity3.getActivityByID(activityArray, 54)).to.equal("Invalid user ID. Please verify user ID and try again.")
     })
 
     it('should return an array of dates the user exceeded their step goal', () => {
@@ -240,12 +239,12 @@ describe('Activity', () => {
 
     it('should return the average minutes the user was active for a given week', () => {
       expect(activity2.averageMinutesActiveWeek(activityArray, 2, ["2019/06/22", "2019/06/21", "2019/06/20", "2019/06/19", "2019/06/18", "2019/06/17", "2019/06/16"])).to.equal(154)
-      // expect(activity1.averageMinutesActiveWeek(activityArray, 1, ["2019/06/15"])).to.equal('There is not enough information to calculate your average minutes active. Please select 7 consecutive days of activity')
+      expect(activity1.averageMinutesActiveWeek(activityArray, 1, ["2019/06/15"])).to.equal('There is not enough information to calculate your average minutes active. Please check your inputs and try again.')
     })
 
     it ('should return how many minutes the user was active on a specific date', () => {
       expect(activity1.minutesActiveByDay(activityArray, 1, "2019/06/15")).to.equal(140)
-      // expect(activity1.minutesActiveByDay(activityArray, 1, "2020/05/11")).to.equal(140)
+      expect(activity1.minutesActiveByDay(activityArray, 1, "2020/05/11")).to.equal('No information available. Please verify search information and try again.')
     })
 
     it ('should return the miles walked for a given day by user', () => {
@@ -255,7 +254,7 @@ describe('Activity', () => {
 
     it('should tell the user if they achieved their step goal', () => {
       expect(activity1.stepGoalAchieved(activityArray, 1, "2019/06/15", user1)).to.equal('You didnt reach your step goal for today')
-      // expect(activity2.stepGoalAchieved(activityArray, 2, "2019/06/15", user2)).to.equal('Congratulations! You have exceeded your step goal!')
+      expect(activity2.stepGoalAchieved(activityArray, 2, "2019/06/17", user2)).to.equal('Congratulations! You have exceeded your step goal!')
     })
 
     it('should return the average number of minutes active for all users for a given day', () => {

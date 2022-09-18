@@ -10,11 +10,7 @@ class Activity {
   }
 
   getActivityByID(activityArray, id) {
-    let userActivityInfo = activityArray.filter((user) => user.userID === id);
-    if (userActivityInfo.length === 0) {
-      return "Invalid user ID. Please verify user ID and try again.";
-    }
-    return userActivityInfo;
+    return activityArray.filter((user) => user.userID === id)
   }
 
   exceededGoal(activityArray, id, user) {
@@ -55,6 +51,9 @@ class Activity {
   averageMinutesActiveWeek(activityArray, id, dates) {
     let givenWeek = dates;
     let currentUserActivity = this.getActivityByID(activityArray, id);
+    if (currentUserActivity.length < 7) {
+        return 'There is not enough information to calculate your average minutes active. Please check your inputs and try again.'
+    }
     const totalMinutesActive = currentUserActivity.reduce((acc, day) => {
       givenWeek.forEach((dayy) => {
         if (day.date === dayy) {
@@ -66,17 +65,19 @@ class Activity {
     return parseInt(totalMinutesActive / 7);
   }
 
+
   minutesActiveByDay(activityArray, id, date) {
-    let currentUserActivity = this.getActivityByID(activityArray, id);
-    let minutesActivePerDay = currentUserActivity.find((day) => {
-      if (day.date === date) {
-        return day.date;
-      } else {
-        return "No data for this day.";
-      }
-    });
-    return minutesActivePerDay.minutesActive;
+    let currentUserActivity = this.getActivityByID(activityArray, id)
+    if (currentUserActivity.length === 0) {
+        return "No information available. Please verify search information and try again."
+    }
+    let minutesActivePerDay = currentUserActivity.find((activity) => activity.date === date )
+    if (!minutesActivePerDay) {
+        return 'No information available. Please verify search information and try again.'
+    }
+    return minutesActivePerDay.minutesActive
   }
+  
 
   milesWalkedByDay(activityArray, id, date, userID) {
     let currentUserActivity = this.getActivityByID(activityArray, id);
@@ -95,14 +96,7 @@ class Activity {
 
   stepGoalAchieved(activityArray, id, date, userID) {
     let currentUserActivity = this.getActivityByID(activityArray, id);
-    const getStepGoal = currentUserActivity.find((day) => {
-      if (day.date === date) {
-        return day;
-      } else {
-        return "No data for this day.";
-      }
-    }).numSteps;
-    // console.log(getStepGoal, 'user: ', userID.dailyStepGoal)
+    let getStepGoal = currentUserActivity.filter((day) => day.date === date).map(dateObj => dateObj.numSteps);
     if (getStepGoal > userID.dailyStepGoal) {
       return "Congratulations! You have exceeded your step goal!";
     } else if (getStepGoal === userID.dailyStepGoal) {
