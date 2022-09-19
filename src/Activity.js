@@ -78,7 +78,32 @@ class Activity {
     return minutesActivePerDay.minutesActive
   }
   
+  stepsWalkedByDay(activityArray, id) {
+    let currentUserActivity = this.getActivityByID(activityArray, id);
+    currentUserActivity.sort((a, b) => {
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    // const getDailySteps = currentUserActivity.find((day) => {
+    //   if (day.date === date) {
+    //     return day;
+    //   } else {
+    //     return "No data for this day.";
+    //   }
+    // }).numSteps;
+    // return getDailySteps
+  })
+  return currentUserActivity[0].numSteps
+}
 
+  latestMilesWalked(activityArray, id, userID) {
+    let currentUserActivity = this.getActivityByID(activityArray, id);
+    currentUserActivity.sort((a, b) => {
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    })
+    const getDailySteps = currentUserActivity[0].numSteps
+    const getMiles = Number(((getDailySteps * userID.strideLength) / 5280).toFixed(1));
+    return getMiles;
+  }
+  
   milesWalkedByDay(activityArray, id, date, userID) {
     let currentUserActivity = this.getActivityByID(activityArray, id);
     const getDailySteps = currentUserActivity.find((day) => {
@@ -88,9 +113,7 @@ class Activity {
         return "No data for this day.";
       }
     }).numSteps;
-    const getMiles = Number(
-      ((getDailySteps * userID.strideLength) / 5280).toFixed(1)
-    );
+    const getMiles = Number(((getDailySteps * userID.strideLength) / 5280).toFixed(1));
     return getMiles;
   }
 

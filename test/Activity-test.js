@@ -232,6 +232,12 @@ describe('Activity', () => {
       expect(activity2.getLatestActiveMinutes(activityArray, 2)).to.equal(124)
     })
 
+
+    it('should return the latest number of steps for the user', () => {
+      expect(activity1.stepsWalkedByDay(activityArray, 1)).to.equal(11858)
+      expect(activity2.stepsWalkedByDay(activityArray, 2)).to.equal(3605)
+    })
+
     it('should return the users highest stair climbing record', () => {
       expect(activity1.allTimeStairClimbingRecord(activityArray, 1)).to.equal(54)
       expect(activity2.allTimeStairClimbingRecord(activityArray, 2)).to.equal(44)
@@ -245,6 +251,11 @@ describe('Activity', () => {
     it ('should return how many minutes the user was active on a specific date', () => {
       expect(activity1.minutesActiveByDay(activityArray, 1, "2019/06/15")).to.equal(140)
       expect(activity1.minutesActiveByDay(activityArray, 1, "2020/05/11")).to.equal('No information available. Please verify search information and try again.')
+    })
+
+    it ('should return the latest miles walked by user', () => {
+      expect(activity1.latestMilesWalked(activityArray, 1, user1)).to.equal(9.7)
+      expect(activity2.latestMilesWalked(activityArray, 2, user2)).to.equal(3.1)
     })
 
     it ('should return the miles walked for a given day by user', () => {

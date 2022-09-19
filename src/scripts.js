@@ -8,6 +8,10 @@ let userAddress = document.getElementById("userAddress");
 let userEmail = document.getElementById("userEmail");
 let userStrideLength = document.getElementById("userStrideLength");
 
+let dailyMinutes = document.getElementById("dailyMinutes")
+let dailySteps = document.getElementById("dailySteps")
+let dailyMiles = document.getElementById("dailyMiles")
+
 let yourGoal = document.getElementById("yourGoal");
 let allUsersGoals = document.getElementById("allUsersGoals");
 let averageStatus = document.getElementById("averageStatus");
@@ -23,6 +27,10 @@ let latestWeekSleepQuality = document.getElementById("latestWeekSleepQuality");
 let allTimeSleepQuality = document.getElementById("allTimeSleepQuality");
 let allTimeSleepHours = document.getElementById("allTimeSleepHours");
 
+let latestWeekSteps = document.getElementById("latestWeekSteps")
+let latestWeekStairs = document.getElementById("latestWeekStairs")
+let latestWeekMinutes = document.getElementById("latestWeekMinutes")
+
 // Event listeners
 window.addEventListener("load", initializeData);
 
@@ -33,9 +41,11 @@ import UserRepository from "./UserRepository";
 import { fetchAllData } from "./apiCalls";
 import Activity from "./Activity";
 
+
 // Global Variables
 let currentSleep;
 let currentHydration;
+let userActivity;
 
 // An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import "./images/turing-logo.png";
@@ -51,6 +61,7 @@ function initializeData() {
     fetchAllData("users"),
     fetchAllData("sleep"),
     fetchAllData("hydration"),
+    fetchAllData("activity")
   ]).then((data) => {
     let allUsers = data[0].userData.map((user) => {
       let currentUser = new User(user);
@@ -68,6 +79,11 @@ function initializeData() {
       return currentSleep;
     });
 
+    let allActivity = data[3].activityData.map((activityInfo) => {
+      userActivity = new Activity(activityInfo);
+      return userActivity;
+    })
+
     let randomUser =
       userRepository.userData[
       Math.floor(Math.random() * userRepository.userData.length)
@@ -76,6 +92,7 @@ function initializeData() {
     renderStepAverage(randomUser, userRepository)
     renderHydrationData(userHydration, randomUser);
     renderSleepData(allSleep, randomUser);
+    renderUserDailyActivity(allActivity, randomUser);
   });
 }
 
@@ -144,6 +161,19 @@ function renderSleepData(allSleep, randomUser) {
     allSleep,
     randomUser.id
   )}`;
+
+}
+
+function renderUserDailyActivity(allActivity, randomUser) {
+  dailyMinutes.innerText = ` ${userActivity.getLatestActiveMinutes(allActivity, randomUser.id)}, `
+  dailySteps.innerText = ` ${userActivity.stepsWalkedByDay(allActivity, randomUser.id)}`
+  // dailyMiles.innerText = ` ${userActivity.latestMilesWalked(allActivity,randomUser.id)}`
+}
+
+function renderUserWeeklyActivity() {
+  latestWeekSteps.innerText = ` ${userActivity.averageAllUsersDailySteps(allActivity, )}`
+  latestWeekMinutes.innerText = ``
+  latestWeekStairs.innerText = ``
 }
 
 
