@@ -79,14 +79,16 @@ h2 {
 .user-info-container,
 .step-goal-container,
 .hydration,
-.sleep {
+.sleep, 
+.manual-entry {
   border: 2px solid #f48a86;
   background-color: rgba(128, 228, 214, 0.1);
   border-radius: 8px;
   padding: 15px;
 }
 
-.personal-information-container {
+.personal-information-container
+{
   align-items: center;
   border-radius: 8px;
   display: flex;
