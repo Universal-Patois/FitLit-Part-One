@@ -23,8 +23,13 @@ let latestWeekSleepQuality = document.getElementById("latestWeekSleepQuality");
 let allTimeSleepQuality = document.getElementById("allTimeSleepQuality");
 let allTimeSleepHours = document.getElementById("allTimeSleepHours");
 
+const dateInputBox = document.getElementById('dateInput')
+const inputButton = document.querySelector('.save-button')
+
+
 // Event listeners
 window.addEventListener("load", initializeData);
+inputButton.addEventListener('click', addInfo)
 
 // An example of how you tell webpack to use a CSS file
 import "./css/styles.css";
@@ -146,15 +151,13 @@ function renderSleepData(allSleep, randomUser) {
   )}`;
 }
 
+function addInfo() {
+  let dateInputValue = dateInputBox.value;
+  let selectedDate = dateInputValue.replaceAll('-', '/')
+  console.log(selectedDate)
+  if (selectedDate === '') {
+      return alert('Please select a date')
+  }
+  return selectedDate
+}
 
-// card 1 includes Activity-->
-// For a user, the number of steps for the latest day
-// For a user, the number minutes active for the latest day
-// For a user, the distance they have walked (in miles) for the latest day based on their step count
-// How their number of steps, minutes active, and flights of stairs climbed compares to all users for the latest day
-
-// card 2 includes
-// For a user, a weekly view of their step count, flights of stairs climbed, and minutes active
-
-// card 3 will update info 
-// A user should be able to add new sleep, hydration and activity data from the dashboard
