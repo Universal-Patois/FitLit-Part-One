@@ -112,3 +112,9 @@ h2 {
 #firstName {
   color: #6df1d8;
 }
+
+.input-box,
+.save-button {
+  background-color: #43484B;
+  color: #6df1d8;
+}
