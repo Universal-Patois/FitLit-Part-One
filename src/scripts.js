@@ -25,6 +25,7 @@ let allTimeSleepHours = document.getElementById("allTimeSleepHours");
 
 const dateInputBox = document.getElementById('dateInput')
 const inputButton = document.querySelector('.save-button')
+const hoursInputBox = document.getElementById('hrs-slept')
 
 
 // Event listeners
@@ -152,12 +153,17 @@ function renderSleepData(allSleep, randomUser) {
 }
 
 function addInfo() {
-  let dateInputValue = dateInputBox.value;
-  let selectedDate = dateInputValue.replaceAll('-', '/')
-  console.log(selectedDate)
-  if (selectedDate === '') {
-      return alert('Please select a date')
-  }
-  return selectedDate
+  // let dateInputValue = dateInputBox.value;
+  // let selectedDate = dateInputValue.replaceAll('-', '/')
+  // console.log(selectedDate)
+  // if (selectedDate === '') {
+  //     return alert('Please select a date')
+  // }
+  // return selectedDate
+  let hoursInputValue = hoursInputBox.value;
+  let selectedHours = hoursInputValue
+  console.log(selectedHours)
+  return selectedHours
 }
+
 
